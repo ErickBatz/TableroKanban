@@ -50,7 +50,7 @@ export default function ModalNuevaTarea({estadoInicial,onCrear,onCerrar}){
                     </select>
 
                     <div className="modal-acciones">
-                        <button type="button" onClick={onCerrar}>Cancelar</button>
+                        <button type="button" className="btn-secundario" onClick={onCerrar}>Cancelar</button>
                         <button type="submit" className="btn-primario" >Crear Tarea</button>
                     </div>
                

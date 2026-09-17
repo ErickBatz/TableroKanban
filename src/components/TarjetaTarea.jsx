@@ -13,9 +13,17 @@ function obtenerIniciales(nombreCompleto){
     .toUpperCase();
 }
 
-export default function TarjetaTarea({tarea}){
+export default function TarjetaTarea({tarea,onVerTarea}){
+    function manejarDragStart(evento){
+        evento.dataTransfer.setData('text/plain',tarea.id_tarea);
+    }
+
     return (
-        <div className="tarjeta-tarea">
+        <div className="tarjeta-tarea"
+            draggable 
+            onDragStart={manejarDragStart}
+            onClick={()=> onVerTarea(tarea)}
+        >
             <div className="tarjeta-header">
                 <h4>{tarea.titulo}</h4>
             </div>
@@ -24,13 +32,14 @@ export default function TarjetaTarea({tarea}){
                 <span className="badge-prioridad"
                     style={{backgroundColor:COLORES_PRIORIDAD[tarea.prioridad]}}
                 >
-                    {tarea.prioridad === 'ALTA' && '🔴'}
-                    {tarea.prioridad == 'MEDIA' && '🟡'}
-                    {tarea.prioridad == 'BAJA' && '🟢'}
+                    {tarea.prioridad === 'ALTA' && ''}
+                    {tarea.prioridad == 'MEDIA' && ''}
+                    {tarea.prioridad == 'BAJA' && ''}
                     {''}{tarea.prioridad}
                 </span>
                 <span className="avatar-pequeno">{obtenerIniciales(tarea.usuario)}</span>
             </div>
+           
         </div>
     );
 }
