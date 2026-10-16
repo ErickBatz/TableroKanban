@@ -1,6 +1,4 @@
-import TarjetaTarea from "./TarjetaTarea";
-
-export default function Header(onNuevaTarea){
+export default function Header({onNuevaTarea}){
     return (
         <header className="app-header">
             <div className="logo">Gestion de Trabajo</div>

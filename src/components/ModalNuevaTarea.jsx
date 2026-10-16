@@ -11,7 +11,7 @@ export default function ModalNuevaTarea({estadoInicial,onCrear,onCerrar}){
 
         if(!titulo.trim()) return;
         const nuevaTarea={
-            id_tarea: Date.now,
+            id_tarea: Date.now(),
             titulo,
             descripcion,
             categoria,

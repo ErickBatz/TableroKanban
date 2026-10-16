@@ -1,24 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Tablero from './components/Tablero'
 import Header from './components/Header'
 import ModalNuevaTarea from './components/ModalNuevaTarea'
-import {tareasPrueba} from './data/tareasPrueba'
+import './styles/variables.css'
 
 function App() {
 
-  const [tareas,setTareas] = useState(tareasPrueba);
+  const [tareas,setTareas] = useState([]);
   const [modalNuevaAbierto,setModalNuevaAbierto] = useState(false);
   const [estadoParaNuevaTarea,setEstadoParaNuevaTarea] = useState('PENDIENTE');
   const [tareaSeleccionada,setTareaSeleccionada] = useState(null);
 
+  useEffect(()=>{
+    const obtenerTareasDeApi =  async  () =>{
+      try{
+        const respuesta = await fetch('http://localhost/fs2026/ci4-tableroKanban/public/api/tareas');
+        const datos = await respuesta.json();
+        
+        setTareas(datos);
+      }
+      catch(error){
+        console.error('Error al conectar con la API', error);
+      }
+    }
+    obtenerTareasDeApi();
+  },[]);
+
+
+
   function abrirModalNueva(){
     setEstadoParaNuevaTarea('PENDIENTE');
-    setEstadoParaNuevaTarea(true);
+    setModalNuevaAbierto(true);
+  }
+
+  function verTarea(tarea){
+    setTareaSeleccionada(tarea);
   }
 
   function agregarTarea(nuevaTarea){
-    setTarea(prev => [...prev,nuevaTarea]);
+    setTareas(prev => [...prev,nuevaTarea]);
   }
 
   function moverTarea(idTarea,nuevoEstado){

@@ -39,7 +39,6 @@ export default function TarjetaTarea({tarea,onVerTarea}){
                 </span>
                 <span className="avatar-pequeno">{obtenerIniciales(tarea.usuario)}</span>
             </div>
-           
         </div>
     );
 }
