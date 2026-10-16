@@ -365,3 +365,13 @@
 .btn-secundario:hover{
   background: #4e4d4d;
 }
+
+.btn-eliminar{
+  background: #e05c5c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: 600;
+  margin: 5px;
+}

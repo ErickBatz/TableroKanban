@@ -1,6 +1,6 @@
 import ColumnaKanba from "./ColumnaKanba";
 
-export default function Tablero({tareas,onVerTarea,onSoltarTarea}){
+export default function Tablero({tareas,onVerTarea,onSoltarTarea,onEliminarTarea}){
     
     const pendientes = tareas.filter(t=> t.estado==='PENDIENTE');
     const enProceso = tareas.filter(t=> t.estado ==='EN_PROCESO');
@@ -16,6 +16,7 @@ export default function Tablero({tareas,onVerTarea,onSoltarTarea}){
                     tareas={pendientes}
                     onSoltarTarea={onSoltarTarea}
                     onVerTarea={onVerTarea}
+                    onEliminarTarea={onEliminarTarea}
                     />
 
 
@@ -26,6 +27,7 @@ export default function Tablero({tareas,onVerTarea,onSoltarTarea}){
                     tareas={enProceso}
                     onSoltarTarea={onSoltarTarea}
                     onVerTarea={onVerTarea}
+                    onEliminarTarea={onEliminarTarea}
 
 
                 />
@@ -38,6 +40,7 @@ export default function Tablero({tareas,onVerTarea,onSoltarTarea}){
                     tareas={completado}
                     onSoltarTarea={onSoltarTarea}
                     onVerTarea={onVerTarea}
+                    onEliminarTarea={onEliminarTarea}
 
                     />
 

@@ -4,6 +4,7 @@ import Tablero from './components/Tablero'
 import Header from './components/Header'
 import ModalNuevaTarea from './components/ModalNuevaTarea'
 import './styles/variables.css'
+import { tareaApi } from './service/api'
 
 function App() {
 
@@ -15,19 +16,26 @@ function App() {
   useEffect(()=>{
     const obtenerTareasDeApi =  async  () =>{
       try{
-        const respuesta = await fetch('http://localhost/fs2026/ci4-tableroKanban/public/api/tareas');
-        const datos = await respuesta.json();
-        
+        const datos =  await tareaApi.listar();
         setTareas(datos);
       }
       catch(error){
         console.error('Error al conectar con la API', error);
       }
-    }
+    };
+    
     obtenerTareasDeApi();
   },[]);
 
-
+  async function eliminarTarea(id){
+    try{
+      await tareaApi.eliminar(id);
+      setTareas(prev=>prev.filter(t =>String(t.id_tarea) !== String(id)));
+    }
+    catch(error){
+      console.error('No se pudo borrar ', error);
+    }
+  }
 
   function abrirModalNueva(){
     setEstadoParaNuevaTarea('PENDIENTE');
@@ -42,14 +50,19 @@ function App() {
     setTareas(prev => [...prev,nuevaTarea]);
   }
 
-  function moverTarea(idTarea,nuevoEstado){
-    setTareas(prev =>
-        prev.map(tarea =>
-          tarea.id_tarea === idTarea
-          ? {...tarea, estado:nuevoEstado}
-          :tarea
+  async function moverTarea(idTarea,nuevoEstado){
+    try{
+      await tareaApi.actualizar(idTarea, {estado: nuevoEstado});
+      setTareas(prev =>
+        prev.map(t =>
+          String(t.id_tarea) ===  String(idTarea)
+          ? { ...t, estado: nuevoEstado}
+          : t
         )
-    );
+      );
+    } catch(error){
+      console.error('No se pudo mover la tarea', error);
+    }
   }
  
   return (
@@ -61,6 +74,7 @@ function App() {
         tareas = {tareas}
         onVerTarea = {verTarea}
         onSoltarTarea ={moverTarea}
+        onEliminarTarea={eliminarTarea}
         />
 
       {modalNuevaAbierto && (

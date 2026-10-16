@@ -13,7 +13,7 @@ function obtenerIniciales(nombreCompleto){
     .toUpperCase();
 }
 
-export default function TarjetaTarea({tarea,onVerTarea}){
+export default function TarjetaTarea({tarea,onVerTarea, onEliminarTarea}){
     function manejarDragStart(evento){
         evento.dataTransfer.setData('text/plain',tarea.id_tarea);
     }
@@ -26,6 +26,14 @@ export default function TarjetaTarea({tarea,onVerTarea}){
         >
             <div className="tarjeta-header">
                 <h4>{tarea.titulo}</h4>
+                <button
+                    className="btn-eliminar"
+                    onClick={(e)=>{
+                        e.stopPropagation();
+                        if(window.confirm('Borrar esta Tarea?')) onEliminarTarea(tarea.id_tarea);
+                    }}
+            >
+                Eliminar Tarea</button>
             </div>
             <p className="tarjeta-descripcion">{tarea.descripcion}</p>
             <div className="tarjeta-footer">
@@ -39,6 +47,7 @@ export default function TarjetaTarea({tarea,onVerTarea}){
                 </span>
                 <span className="avatar-pequeno">{obtenerIniciales(tarea.usuario)}</span>
             </div>
+            
         </div>
     );
 }

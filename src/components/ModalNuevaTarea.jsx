@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { tareaApi } from "../service/api";
 
 export default function ModalNuevaTarea({estadoInicial,onCrear,onCerrar}){
     const [titulo,setTitulo]= useState('');
@@ -6,21 +7,27 @@ export default function ModalNuevaTarea({estadoInicial,onCrear,onCerrar}){
     const [categoria,setCategoria] =useState('Desarrollo');
     const[prioridad,setPrioridad]=useState('MEDIA');
 
-    function manejarSubmit(evento){
+    async function  manejarSubmit(evento){
         evento.preventDefault();
 
         if(!titulo.trim()) return;
         const nuevaTarea={
-            id_tarea: Date.now(),
             titulo,
             descripcion,
             categoria,
             prioridad,
-            estado:estadoInicial,
-            usuario: 'sin agregar'
+            estado : estadoInicial,
+            usuario : 'Erick Batz'
         };
-        onCrear(nuevaTarea);
-        onCerrar();
+        
+        try{
+            const resultado = await tareaApi.crear(nuevaTarea);
+            onCrear(resultado.data);
+            onCerrar();
+        }
+        catch(error){
+            console.error('Error de red: no se pudo conectar con PHP', error);
+            } 
     }
 
     return (

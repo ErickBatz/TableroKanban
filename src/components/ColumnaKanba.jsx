@@ -1,7 +1,7 @@
 import TarjetaTarea from "./TarjetaTarea";
 
 
-export default function ColumnaKanba({titulo,estado, color, tareas, onVerTarea,onSoltarTarea}){
+export default function ColumnaKanba({titulo,estado, color, tareas, onVerTarea,onSoltarTarea,onEliminarTarea}){
     
     function manejarDragOver(evento){
         evento.preventDefault();
@@ -9,7 +9,7 @@ export default function ColumnaKanba({titulo,estado, color, tareas, onVerTarea,o
 
     function manejarDrop(evento){
         const idTarea= evento.dataTransfer.getData('text/plain');
-        onSoltarTarea(Number(idTarea),estado);
+        onSoltarTarea(idTarea,estado);
     }
     
     return(
@@ -30,8 +30,8 @@ export default function ColumnaKanba({titulo,estado, color, tareas, onVerTarea,o
                 {tareas.length===0 ? (
                     <p>sin tareas todavia</p>
                 ):(
-                    tareas.map(tarea=>(
-                        <TarjetaTarea key={tarea.id_tarea} tarea={tarea} onVerTarea={onVerTarea}/>
+                    tareas.map(tarea=>( 
+                        <TarjetaTarea key={tarea.id_tarea} tarea={tarea} onVerTarea={onVerTarea} onEliminarTarea={onEliminarTarea}/>
                     ))
                 )}
             </div>
