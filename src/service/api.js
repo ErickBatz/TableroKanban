@@ -23,3 +23,6 @@ export const tareaApi = {
     actualizar: (id, datos) => peticion(`tareas/${id}`,{metodo: 'PUT', datos}),
     eliminar: (id) => peticion(`tareas/${id}`,{metodo: 'DELETE'}), 
 };
+export const usuarioApi ={
+    listar: () => peticion('usuarios'),
+};

@@ -6,7 +6,7 @@ const COLORES_PRIORIDAD={
 };
 
 function obtenerIniciales(nombreCompleto){
-    return nombreCompleto
+    return (nombreCompleto || '?')
     .split(' ')
     .map(palabra=>palabra[0])
     .join('')

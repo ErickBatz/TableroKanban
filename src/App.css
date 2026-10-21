@@ -370,8 +370,18 @@
   background: #e05c5c;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
+  padding: 1px;
+  font-weight: 400;
+  margin: 3px;
+}
+
+.btn-nueva-tarea-header{
+  border: 1px solid;
   padding: 5px;
-  font-weight: 600;
-  margin: 5px;
+  background: #0e3850;
+  color: white;
+  border-radius: 5px;
+  font-family: sans-serif;
+  font-weight: 500;
 }
